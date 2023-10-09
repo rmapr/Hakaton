@@ -6,7 +6,7 @@
 
     <!-- Create table Restaurant -->
     <changeSet author="All" id="createRestaurant">
-        <createTable tableName="product">
+        <createTable tableName="restaurant">
             <column name="id" type="INT" autoIncrement="true">
                 <constraints  nullable="false" primaryKey="true"/>
             </column>
