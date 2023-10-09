@@ -1,4 +1,8 @@
-package service;
+package com.hakaton.service;
+
+import com.hakaton.entity.Restaurant;
+
+import java.util.List;
 
 public interface RestaurantService {
     Restaurant addRestaurant(Restaurant restaurant);
