@@ -20,8 +20,8 @@ public class Restaurant {
     private Integer id;
     private String city;
     private String name;
-    private Integer estimatedCost;
-    private String averageRating;
+    private Integer cost;
+    private String rating;
     private Integer votes;
 
 }

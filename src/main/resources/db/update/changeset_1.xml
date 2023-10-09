@@ -12,9 +12,9 @@
             </column>
             <column name="city" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(255)"/>
-            <column name="estimatedCost" type="INT"/>
-            <column name="averageRating" type="VARCHAR(10)"/>
-            <column name="vates" type="INT"/>
+            <column name="cost" type="INT"/>
+            <column name="rating" type="VARCHAR(10)"/>
+            <column name="votes" type="INT"/>
         </createTable>
     </changeSet>
 

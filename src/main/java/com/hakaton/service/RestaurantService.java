@@ -1,11 +1,12 @@
 package com.hakaton.service;
 
+import com.hakaton.dto.RestaurantDTO;
 import com.hakaton.entity.Restaurant;
 
 import java.util.List;
 
 public interface RestaurantService {
-    Restaurant addRestaurant(Restaurant restaurant);
+    Restaurant addRestaurant(Restaurant restaurantDTO);
 
     Restaurant updateRestaurantRating(Long id, double averageRating, int votes);
 
