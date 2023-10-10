@@ -10,38 +10,51 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/restaurant")
 @RequiredArgsConstructor
 @Slf4j
 public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/{id}")
-    public Restaurant getOrderByIdController(@PathVariable("id") Long id) {
-        log.info("call method get from Order by Id...");
+    public Restaurant getRestaurantByIdController(@PathVariable("id") Integer id) {
+        log.info("call method get from Restaurant by Id...");
         return restaurantService.getRestaurantById(id);
     }
 
     @GetMapping("/all")
-    public List<Restaurant> getAllOrdersController() {
-        log.info("call method get all Orders...");
+    public List<Restaurant> getAllRestaurantController() {
+        log.info("call method get all Restaurants...");
         return restaurantService.getAllRestaurants();
     }
-
-    @PostMapping
-    public Restaurant addOrderController(@RequestBody Restaurant rest) {
-        log.info(" call method add order...");
-//        products.forEach(product -> log.info("Add product: " + product.getName() + " " + product.getCost()));
-        return restaurantService.addRestaurant(rest);
+    @GetMapping("/city")
+    public List<Restaurant> getRestaurantByCityController(@RequestParam String city) {
+        log.info("call method get Restaurants for city {}...", city);
+        return restaurantService.getRestaurantsByCity(city);
     }
-//    @PutMapping("/update")
-//    public Restaurant updateOrderController(@RequestBody Restaurant restaurant) {
-//        logger.info("OrderController - call method update order...");
-//        return restaurantService.updateRestaurantRating(restaurant);
-//    }
+    @GetMapping("/sort")
+    public List<Restaurant> getRestaurantsSortByRatingController() {
+        log.info("call method get Restaurants sorted by rating ...");
+        return restaurantService.getSortedRestaurantsByRating();
+    }
+
+    @PostMapping("")
+    public Integer addRestaurantController(@RequestBody RestaurantDTO restaurantDTO) {
+        log.info(" call method add Restaurants...");
+        return restaurantService.addRestaurant(restaurantDTO);
+    }
+    @PutMapping("/update/{id}")
+    public Restaurant updateOrderController(
+            @PathVariable("id") final Integer id,
+            @RequestParam("averageRating") String rating,
+            @RequestParam("votes") int votes) {
+        log.info("call method update Restaurants...");
+
+        return restaurantService.updateRestaurantRating(id, rating, votes);
+    }
     @DeleteMapping("/delete/{id}")
-    public void deleteOrderController(@PathVariable("id") final Long id) {
-        log.info("call method delete from Order by Id...");
+    public void deleteRestaurantController(@PathVariable("id") final Integer id) {
+        log.info("call method delete from Restaurants by Id...");
         restaurantService.deleteRestaurantById(id);
     }
 

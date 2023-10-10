@@ -17,20 +17,28 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantRepository restaurantRepository;
     @Override
-    public Restaurant addRestaurant(Restaurant restaurantDto) {
-//        Restaurant restaurant = new Restaurant();
-//        restaurant.setCity(restaurantDto.getCity());
-//        restaurant.setName(restaurantDto.getName());
-//        restaurant.setVates(restaurantDto.getVotes());
-//        restaurant.setAverageRating(restaurantDto.getAverageRating());
-//        restaurant.setEstimatedCost(restaurantDto.getEstimatedCost());
-
-        return restaurantRepository.save(restaurantDto);
+    public Integer addRestaurant(RestaurantDTO restaurantDto) {
+        Restaurant restaurant = new Restaurant()
+                .setCity(restaurantDto.getCity())
+                .setVotes(restaurantDto.getVotes())
+                .setName(restaurantDto.getName())
+                .setRating(restaurantDto.getAverageRating())
+                .setCost(restaurantDto.getEstimatedCost());
+        return restaurantRepository.save(restaurant).getId();
     }
 
     @Override
-    public Restaurant updateRestaurantRating(Long id, double averageRating, int votes) {
-        return null;
+    public Restaurant updateRestaurantRating(Integer id, String averageRating, int votes) {
+        log.info("Визов методу оновити рейтинг ресторану ...: ");
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> {
+                            log.error("Ресторан з індексом {} відсутній", id);
+                            return new RestaurantNotFoundException("Restaurant_Not_Found");
+                        }
+                );
+        restaurant.setRating(averageRating);
+        restaurant.setVotes(votes);
+        return restaurantRepository.save(restaurant);
     }
 
     @Override
@@ -41,27 +49,33 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List<Restaurant> getRestaurantsByCity(String city) {
-        return null;
+        log.info("Визов методу показати ресторани в місті {}... ", city);
+        return restaurantRepository.findAllByCity(city);
     }
 
     @Override
-    public Restaurant getRestaurantById(Long id) {
-        Restaurant restaurant = restaurantRepository.findById(id)
+    public Restaurant getRestaurantById(Integer id) {
+        return restaurantRepository.findById(id)
                 .orElseThrow(() -> {
                             log.error("Ресторан з індексом {} відсутній", id);
                             return new RestaurantNotFoundException("Restaurant_Not_Found");
                         }
                 );
-        return restaurant;
     }
 
     @Override
-    public void deleteRestaurantById(Long id) {
+    public void deleteRestaurantById(Integer id) {
+        if (!restaurantRepository.existsById(id)) {
+            log.error("Видалити неможливо. Замовлення з індексом {} відсутнє", id);
+            throw new RestaurantNotFoundException("RESTAURANT_NOT_FOUND");
+        }
+        restaurantRepository.deleteById(id);
 
     }
 
     @Override
     public List<Restaurant> getSortedRestaurantsByRating() {
-        return null;
+        log.info("Визов методу відсортовані ресторани по рейтингу ...: ");
+        return restaurantRepository.findAllByOrderByRating();
     }
 }

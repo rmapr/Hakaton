@@ -6,17 +6,17 @@ import com.hakaton.entity.Restaurant;
 import java.util.List;
 
 public interface RestaurantService {
-    Restaurant addRestaurant(Restaurant restaurantDTO);
+    Integer addRestaurant(RestaurantDTO restaurantDTO);
 
-    Restaurant updateRestaurantRating(Long id, double averageRating, int votes);
+    Restaurant updateRestaurantRating(Integer id, String averageRating, int votes);
 
     List<Restaurant> getAllRestaurants();
 
     List<Restaurant> getRestaurantsByCity(String city);
 
-    Restaurant getRestaurantById(Long id);
+    Restaurant getRestaurantById(Integer id);
 
-    void deleteRestaurantById(Long id);
+    void deleteRestaurantById(Integer id);
 
     List<Restaurant> getSortedRestaurantsByRating();
 }

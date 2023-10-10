@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: rootroot
-    url: jdbc:mysql://localhost:3306/springBoot_hw35?useUnicode=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/hakaton?useUnicode=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
   jpa:
     properties:
       hibernate:
