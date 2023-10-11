@@ -18,6 +18,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantRepository restaurantRepository;
     @Override
     public Integer addRestaurant(RestaurantDTO restaurantDto) {
+        log.info("Визов методу добавити новий ресторан ...: ");
         Restaurant restaurant = new Restaurant()
                 .setCity(restaurantDto.getCity())
                 .setVotes(restaurantDto.getVotes())
@@ -55,6 +56,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant getRestaurantById(Integer id) {
+        log.info("Визов методу показати ресторан за індексом {}... ", id);
         return restaurantRepository.findById(id)
                 .orElseThrow(() -> {
                             log.error("Ресторан з індексом {} відсутній", id);
@@ -65,9 +67,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void deleteRestaurantById(Integer id) {
+        log.info("Визов методу видалити ресторан за індексом {} ...: ", id);
         if (!restaurantRepository.existsById(id)) {
-            log.error("Видалити неможливо. Замовлення з індексом {} відсутнє", id);
-            throw new RestaurantNotFoundException("RESTAURANT_NOT_FOUND");
+            log.error("Видалити неможливо. Ресторан з індексом {} відсутній", id);
+            throw new RestaurantNotFoundException("Restaurant_Not_Found");
         }
         restaurantRepository.deleteById(id);
 

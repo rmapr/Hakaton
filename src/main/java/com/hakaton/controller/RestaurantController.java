@@ -40,7 +40,7 @@ public class RestaurantController {
 
     @PostMapping("")
     public Integer addRestaurantController(@RequestBody RestaurantDTO restaurantDTO) {
-        log.info(" call method add Restaurants...");
+        log.info("call method add Restaurants...");
         return restaurantService.addRestaurant(restaurantDTO);
     }
     @PutMapping("/update/{id}")
