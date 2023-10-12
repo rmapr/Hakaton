@@ -5,6 +5,8 @@ import com.hakaton.entity.Restaurant;
 import com.hakaton.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,10 +41,16 @@ public class RestaurantController {
     }
 
     @PostMapping("")
-    public Integer addRestaurantController(@RequestBody RestaurantDTO restaurantDTO) {
+//    public Integer addRestaurantController(@RequestBody RestaurantDTO restaurantDTO) {
+//        log.info("call method add Restaurants...");
+//        return restaurantService.addRestaurant(restaurantDTO);
+//    }
+    ResponseEntity<String> addRestaurantController(@RequestBody RestaurantDTO restaurantDTO){
         log.info("call method add Restaurants...");
-        return restaurantService.addRestaurant(restaurantDTO);
-    }
+    return new ResponseEntity<>(
+      "A restaurant with the index " + restaurantService.addRestaurant(restaurantDTO) + " has been added.",
+      HttpStatus.CREATED);
+}
     @PutMapping("/update/{id}")
     public Restaurant updateOrderController(
             @PathVariable("id") final Integer id,
